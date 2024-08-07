@@ -1,0 +1,54 @@
+#include<iostream>
+
+using namespace std;
+void merge(int arr[],int begin,int end){
+  int l1 = (end-begin)/2 + 1;
+  int l2 =  end - begin - l1 + 1; 
+  int *arr1 = new int[l1];
+  int *arr2 = new int[l2];
+  
+  for(int i=0;i<l1;i++)arr1[i] = arr[begin+i];
+  for(int i=0;i<l2;i++)arr2[i] = arr[begin+l1+i];
+  int c1=0,c2 = 0,c3 = begin;
+  
+  while (c1<l1 && c2<l2){
+    if(arr1[c1]<=arr2[c2]){
+      arr[c3]=arr1[c1];
+      c1++;
+      c3++;
+    }
+    else {
+      arr[c3]=arr2[c2];
+      c2++;
+      c3++;
+    }
+  }
+  while (c1<l1){
+    arr[c3]=arr1[c1];
+    c1++;
+    c3++;
+  }
+   while (c2<l2){
+    arr[c3]=arr2[c2];
+    c3++;
+    c2++;
+  }
+  delete[] arr1;
+  delete[] arr2;
+  
+}
+void mergesort(int arr[] , int begin , int end){
+  if (begin >= end)return;
+  int mid = begin +(end-begin)/2;
+  mergesort(arr,begin,mid);
+  mergesort(arr,mid+1,end);
+  merge(arr,begin,end);
+}
+
+int main(){
+  int arr[5] = {5,2,1,4,5};
+  mergesort(arr,0,4);
+  for(int i= 0;i<5;i++)
+  cout<<arr[i];
+    return 0;
+}
