@@ -1,0 +1,50 @@
+#include<iostream>
+#include <stack>
+using namespace std;
+
+class btree{
+  public:
+  int data;
+  btree* left;
+  btree* right;
+  btree(int a){
+    this->data = a;
+    this->left = NULL;
+    this-> right = NULL;
+  }
+};
+void trav(btree* b ,int lvl ){
+  cout<<b->data<<" "<<"lvl:"<<" "<<lvl << endl;
+  if(b->left){
+    lvl++;
+    trav(b->left,lvl);
+    lvl--;
+  }
+  if(b->right){
+    lvl++;
+    trav(b->right,lvl);
+    lvl--;
+  }
+  
+}
+
+int main(){
+ 
+ btree* root = new btree(1);
+ btree* Node1 = new btree(2);
+ btree* Node2 = new btree(3);
+ btree* Node3 = new btree(4);
+ btree* Node4 = new btree(5);
+ btree* Node5 = new btree(6);
+ root->left = Node1;
+ root->right = Node2 ;
+ Node1->left = Node3 ;
+ Node1->right = Node4;
+ Node2->right= Node5;
+ int c = 0;
+ trav(root , c);
+ 
+  
+  return 0;
+  
+}
