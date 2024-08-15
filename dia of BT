@@ -1,0 +1,61 @@
+#include<iostream>
+#include <stack>
+using namespace std;
+
+class btree{
+  public:
+  int data;
+  btree* left;
+  btree* right;
+  btree(int a){
+    this->data = a;
+    this->left = NULL;
+    this-> right = NULL;
+  }
+};
+int ldia(btree*b ,int c ){
+  if(!b)return c-1;
+  c++;
+  ldia(b->left,c);
+}
+int rdia(btree*b ,int c ){
+  if(!b)return c-1;
+  c++;
+  rdia(b->right,c);
+}
+void dia(btree*b,stack<int>&s){
+  if(!b)return;
+  int diameter = ldia(b,0)+rdia(b,0);
+  if(diameter>s.top())s.push(diameter);
+  dia(b->left,s);
+  dia(b->right,s);
+}
+int main(){
+ 
+ btree* root = new btree(1);
+ btree* Node1 = new btree(2);
+ btree* Node2 = new btree(3);
+ btree* Node3 = new btree(4);
+ btree* Node4 = new btree(5);
+ btree* Node5 = new btree(6);
+ btree* Node6 = new btree(7);
+ root->left = Node1;
+ Node1->left = Node2;
+ Node2->left = Node3;
+ Node1->right = Node4;
+ Node4->right = Node5;
+ Node5->right = Node6;
+ int c = 0;
+ stack<int>s;
+ s.push(0);
+ dia(root,s);
+ cout<<s.top();
+ 
+
+ 
+ 
+ 
+  
+  return 0;
+  
+}
